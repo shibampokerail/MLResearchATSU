@@ -16,8 +16,7 @@
    - Use this video tutorial: [Install OpenCV](https://www.youtube.com/shorts/yHDSbZJlMx0)
 
 5. **Learn the Basics**:
-   - Understand TensorFlow: [TensorFlow Tutorials](https://www.tensorflow.org/tutorials)
-   - Study Convolutional Neural Networks (CNNs): [Intro to CNNs](https://youtu.be/FmpDIaiMIeA)
+   - Study Convolutional Neural Networks and complete the videos list that I had sent my previous emails.: 
    - Learn about image preprocessing: resizing, scaling, flipping, and rotating.
 
 ---
@@ -77,6 +76,13 @@ dataset = tf.keras.preprocessing.image_dataset_from_directory(
 data_augmentation = tf.keras.Sequential([                       # Now we will create a pipeline to modify our images
     tf.keras.layers.RandomFlip("horizontal_and_vertical"),      # we will randomly flip images up-down and left-right
     tf.keras.layers.RandomRotation(0.2),                        # here we are randomly rotate images by up to 20% we can change this as much as possible
+   # we can use one or combination of many data augmentation techniques to modify our images and increase our dataset
+   # tf.keras.layers.Resizing(256, 256),                          # we are resizing all images to be the same size (256x256 pixels)
+   # tf.keras.layers.Rescaling(1./255)                             # this divides every pixel value by 255 we do this to make the computation easier 0 means completely black 1 means white
+   # other augmentations:
+   # tf.keras.layers.RandomZoom(0.2),      # zoom in/out by up to 20%
+   # tf.keras.layers.RandomBrightness(0.2), # adjust brightness
+   # tf.keras.layers.RandomContrast(0.2),   # adjust contrast
 ])
 
 # If you want to view the augmentated data use the code below
@@ -91,6 +97,7 @@ for image_batch, _ in dataset.take(1):                          # Now we will ta
         plt.axis("off")                                        # Hide the x and y axis lines
     plt.show()                                                 # Show all the images on screen
 ```
+
 ---
 
 
