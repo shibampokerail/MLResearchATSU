@@ -1,7 +1,7 @@
 # Week 1: Data Preparation
 
 ## Day 1: Understand the Basics
-**Goal**: Familiarize yourself with the project requirements and tools.
+**whattodo**: Familiarize yourself with the project requirements and tools.
 
 1. **Install Python**:  
    - Follow this tutorial: [How to Install Python](https://www.youtube.com/watch?v=nhv82tvFfkM)
@@ -23,7 +23,7 @@
 ---
 
 ## Day 2: Organize Data
-**Goal**: Create the folder structure and organize images.
+**whattodo**: Create the folder structure and organize images.
 
 1. **Folder Setup**:
    - Create a main project folder, e.g., `MLResearch2024/`.
@@ -37,9 +37,62 @@
    - Place all images of X-rays showing placenta accreta in the `Placenta_Accreta/` folder.
 
 3. **Resulting Folder Structure**:
+   ```
     MLResearch2024/
     ├── imgDataSet/
     │ ├── Healthy/
     │ ├── Placenta_Accreta/
+   ```
+
+## Day 3: Data Augmentation Setup
+**Goal**: Understand and prepare for data augmentation techniques to enhance dataset variability.
+
+---
+
+### 1. Understand Data Augmentation
+- **What is Data Augmentation?**
+  - Data augmentation improves model generalization by creating new training samples through transformations.
+  - Common techniques include:
+    - **Resizing**: Adjust the size of images to match the input size expected by the model.
+    - **Scaling**: Normalize pixel values to a range (e.g., [0, 1]).
+    - **Flipping**: Flip images horizontally or vertically to simulate different orientations.
+    - **Rotating**: Rotate images by random angles to mimic diverse perspectives.
+
+- **Watch This Tutorial**:  
+  [Data Augmentation in Deep Learning](https://www.youtube.com/shorts/S-7LpWzUaOg)
+  [Example - Data Augmentation](https://colab.research.google.com/github/tensorflow/docs/blob/master/site/en/tutorials/images/data_augmentation.ipynb#scrollTo=0BkRvvsXb6SI)
+
+- **Example Code**
+```
+import tensorflow as tf                 
+import matplotlib.pyplot as plt          # this helps us create graphs and show images
+
+
+dataset = tf.keras.preprocessing.image_dataset_from_directory(
+    "imgDataSet/Healthy",                      # get images from folder named "imgDataSet"
+    image_size=(256, 256),              # make all images 256x256 pixels in size we will change this later depending on the accuracy of the models
+    batch_size=32,                      # process 32 images at a time this is done to save computer memory
+)
+
+data_augmentation = tf.keras.Sequential([                       # Now we will create a pipeline to modify our images
+    tf.keras.layers.RandomFlip("horizontal_and_vertical"),      # we will randomly flip images up-down and left-right
+    tf.keras.layers.RandomRotation(0.2),                        # here we are randomly rotate images by up to 20% we can change this as much as possible
+])
+
+# If you want to view the augmentated data use the code below
+# everything below this is optional code for debugging and understanding
+# This is not modifying anything just setting up the container
+for image_batch, _ in dataset.take(1):                          # Now we will take one batch ( of 32 images) from our dataset
+    augmented_images = data_augmentation(image_batch)           # and apply our modifications to these images from our previous function created above
+    plt.figure(figsize=(10, 10))                               # this will create a 10x10 inch window/container to display our images
+    for i in range(9):                                         # this will loop through our dataset's first 9 images 
+        ax = plt.subplot(3, 3, i + 1)                          # This will create a 3x3 grid of images to display our images 
+        plt.imshow(augmented_images[i].numpy().astype("uint8"))# Displ image
+        plt.axis("off")                                        # Hide the x and y axis lines
+    plt.show()                                                 # Show all the images on screen
+```
+---
+
+
 
    
