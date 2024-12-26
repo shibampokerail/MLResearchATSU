@@ -45,7 +45,7 @@
    ```
 
 ## Day 3: Data Augmentation Setup
-**Goal**: Understand and prepare for data augmentation techniques to enhance dataset variability.
+**whattodo**: Understand and prepare for data augmentation techniques to enhance dataset variability.
 
 ---
 
